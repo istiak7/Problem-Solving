@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+const ll mx = 1e18 ;
+vector<ll> a ;
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	auto st = clock();
+	vector<ll>ugly;
+	ll p1 = 1 ;
+	for (int x = 0 ; p1 <= mx ; x++ , p1 *= 2) {
+		ll p2 = 1 ;
+		for (int y = 0 ; p1 * p2 <= mx ; y++ , p2 *= 3) {
+			ll p3 = 1 ;
+			for (int z = 0 ; p1 * p2 * p3 <= mx ; z++ , p3 *= 5) {
+				ugly.push_back(p1 * p2 * p3);
+			}
+		}
+	}
+	sort(ugly.begin(), ugly.end());
+	cout << "The 1500'th ugly number is " << ugly[1500 - 1] << "." << '\n';
+	cerr << 1.0 * (clock() - st) / CLOCKS_PER_SEC << '\n';
+}
