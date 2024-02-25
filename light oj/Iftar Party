@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+const ll mx = 1e18 ;
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	auto st = clock();
+	int t ; cin >> t ;
+	int cs = 0 ;
+	while (t--) {
+		int p , l ; cin >> p >> l ;
+		vector<ll>a;
+		int q = p - l ;
+		for (int i = 1 ; 1ll * i * i <= q ; i++) {
+			if (q % i == 0) {
+				if (i > l)a.push_back(i);
+				if (i != q / i and q / i > l)a.push_back(q / i);
+			}
+		}
+		sort(a.begin(), a.end());
+		cout << "Case " << ++cs << ": ";
+		if (a.empty())cout << "impossible";
+		for (auto i : a)cout << i << " ";
+		cout << '\n';
+	}
+	cerr << 1.0 * (clock() - st) / CLOCKS_PER_SEC << '\n';
+}
