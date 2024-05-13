@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+#define ll long long int
+using namespace std ;
+const int N = 1e2 + 7 ;
+int dx[] = { -1 , -1 , -1 , +1 , +1 , +1 , 0,  0};
+int dy[] = {0 , -1 , + 1 , 0 , -1 , +1 , -1 , + 1};
+std::vector<vector<char>>grid(N , vector<char>(N));
+bool vis[N][N];
+int m , n ;
+void bfs(int i , int j) {
+    vis[i][j] = true ;
+    queue<pair<int, int>>q;
+    q.push({i, j});
+    while (!q.empty()) {
+        auto cell = q.front();
+        q.pop();
+        int x = cell.first;
+        int y = cell.second;
+        vis[x][y] = true;
+        for (int k = 0 ; k < 8 ; k++) {
+            int xx = x + dx[k];
+            int yy = y + dy[k];
+            if ((xx >= 0 && xx < m) && (yy >= 0 &&
+                                        yy < n) && (!vis[xx][yy] && grid[xx][yy] == '@')) {
+                q.push({xx, yy});
+            }
+        }
+    }
+}
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    while (true) {
+        cin >> m >> n ;
+        if (m == 0)return 0 ;
+        for (int i = 0 ; i < m ; i++) {
+            for (int j = 0 ; j < n ; j++) {
+                cin >> grid[i][j];
+            }
+        }
+        int num_depo = 0 ;
+        for (int i = 0 ; i < m ; i++) {
+            for (int j = 0 ; j < n ; j++) {
+                if (!vis[i][j] && grid[i][j] == '@') {
+                    num_depo++;
+                    bfs(i , j);
+                }
+            }
+        }
+        cout << num_depo << '\n';
+        memset(vis, false, sizeof(vis));
+    }
+}
